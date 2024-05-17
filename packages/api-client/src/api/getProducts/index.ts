@@ -38,7 +38,11 @@ export const getProducts = async (
     );
 
     try {
-        const response = await context.client.get("/products", config);
+        const response = await context.client.get<Product[]>(
+            "/products",
+            config
+        );
+        consola.info("Products fetched successfully:", response.data);
         return response.data;
     } catch (error) {
         consola.error("Failed to fetch products:", error);

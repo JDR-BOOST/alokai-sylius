@@ -8,7 +8,13 @@ import * as apiEndpoints from "./api";
  * Axios is just an example.
  */
 const buildClient = (settings: AxiosRequestConfig) => {
-    const axiosInstance = axios.create(settings);
+    const axiosInstance = axios.create({
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+        ...settings,
+    });
     return axiosInstance;
 };
 

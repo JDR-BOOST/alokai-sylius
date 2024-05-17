@@ -19,7 +19,7 @@ coverage
 # Editor directories and files
 .idea
 .vscode
-playground/app/*
+# playground/app/*
 
 .DS_Store
 .turbo
