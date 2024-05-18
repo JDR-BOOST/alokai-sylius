@@ -1,6 +1,7 @@
 import consola from "consola";
 import { BoilerplateIntegrationContext } from "../../types";
 import { GetProductsParams } from "./types";
+import { Product } from "src/types/models/Product";
 
 export const getProducts = async (
     context: BoilerplateIntegrationContext,

@@ -1,3 +1,15 @@
 export * from "./exampleMethod";
 export { getProduct } from "./getProduct";
 export { getProducts } from "./getProducts";
+export { getProductStock } from "./getProductStock";
+export { createCart } from "./createCart";
+export { addItemToCart } from "./addItemToCart";
+export { checkoutCart } from "./checkoutCart";
+export { getOrders } from "./getOrders";
+export { getOrderDetails } from "./getOrderDetails";
+export { updateCartItemQuantity } from "./updateCartItemQuantity";
+export { getTaxons } from "./getTaxons";
+export { getPaymentMethods } from "./getPaymentMethods";
+export { authenticateUser } from "./authenticateUser";
+export { getClientInfo } from "./getClientInfo";
+export { placeOrder } from "./placeOrder";

@@ -23,3 +23,23 @@ interface Product {
     slug: string;
     defaultVariant: string;
 }
+
+interface ProductVariant {
+    id: number;
+    code: string;
+    price: number;
+    stock: number;
+    createdAt: string;
+    updatedAt: string;
+    product: string;
+    options: string[];
+    associations: string[];
+    images: Image[];
+}
+
+interface Stock {
+    onHand: number;
+    onHold: number;
+}
+
+export { Image, Product, ProductVariant, Stock };

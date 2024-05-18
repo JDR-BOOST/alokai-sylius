@@ -1,6 +1,7 @@
 import consola from "consola";
 import { BoilerplateIntegrationContext } from "../../types";
 import { GetProductParams } from "./types";
+import { Product } from "src/types/models/Product";
 
 export const getProduct = async (
     context: BoilerplateIntegrationContext,
@@ -24,7 +25,7 @@ export const getProduct = async (
     consola.log(`getProduct has been called for ${url}`);
 
     try {
-        const response = await context.client.get(url, { headers });
+        const response = await context.client.get<Product>(url, { headers });
         consola.info("Product fetched successfully:", response.data);
         return response.data;
     } catch (error) {
