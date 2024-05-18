@@ -12,10 +12,7 @@ export const authenticateUser = async (
         const response = await context.client.post<AuthResponse>(
             "/oauth/v2/token",
             {
-                client_id: params.clientId,
-                client_secret: params.clientSecret,
-                grant_type: "password",
-                username: params.username,
+                email: params.email,
                 password: params.password,
             }
         );
