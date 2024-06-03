@@ -1,39 +1,32 @@
 <template>
-    <div class="flex justify-center items-center h-screen">
-        <div class="p-5 w-96">
-            <h1
-                class="typography-headline-2 font-bold mt-2 mb-4 text-green-500"
-            >
-                Build something amazing
-            </h1>
-            <p class="text-gray-50">boilerplate/getProduct</p>
-            <div class="box">
-                <!-- <JsonViewer :value="jsonData" copyable boxed sort theme="light"  @onKeyClick="keyClick"/> -->
-                <h4 class="text-gray-50">Response</h4>
-                <JsonViewer
-                    class="min-h-[800px] min-w-[500px]"
-                    :value="res"
-                    expandDepth="5"
-                    expanded
-                    copyable
-                    boxed
-                    sort
-                    theme="dark"
-                />
-            </div>
-            <div class="flex flex-col md:flex-row gap-4 mt-6">
-                <SfButton @click="callEndpoint" size="lg"> call </SfButton>
-                <SfButton
-                    @click="reset"
-                    size="lg"
-                    variant="secondary"
-                    class="bg-white"
-                >
-                    reset
-                </SfButton>
-            </div>
-        </div>
+  <div class="flex justify-center items-center h-screen">
+    <div class="p-5 w-96">
+      <h1 class="typography-headline-2 font-bold mt-2 mb-4 text-green-500">
+        Build something amazing
+      </h1>
+      <p class="text-gray-50">boilerplate/getProduct</p>
+      <div class="box">
+        <!-- <JsonViewer :value="jsonData" copyable boxed sort theme="light"  @onKeyClick="keyClick"/> -->
+        <h4 class="text-gray-50">Response</h4>
+        <JsonViewer
+          class="min-h-[800px] min-w-[500px]"
+          :value="res"
+          expandDepth="5"
+          expanded
+          copyable
+          boxed
+          sort
+          theme="dark"
+        />
+      </div>
+      <div class="flex flex-col md:flex-row gap-4 mt-6">
+        <SfButton @click="callEndpoint" size="lg"> call </SfButton>
+        <SfButton @click="reset" size="lg" variant="secondary" class="bg-white">
+          reset
+        </SfButton>
+      </div>
     </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -45,14 +38,14 @@ const sdk = useSdk();
 const res = useState("getProduct", () => "waiting to call getProduct() ...");
 
 async function callEndpoint() {
-    const response = await sdk.boilerplate.getProduct({
-        code: "000F_office_grey_jeans",
-    });
-    console.log("vue response", response);
-    res.value = response as any;
+  const response = await sdk.boilerplate.getProduct({
+    code: "007M_black_elegance_jeans",
+  });
+  console.log("vue response", response);
+  res.value = response as any;
 }
 
 function reset() {
-    res.value = "waiting to call test ...";
+  res.value = "waiting to call test ...";
 }
 </script>
