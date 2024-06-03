@@ -19,8 +19,9 @@
   },
   "dependencies": {
     "@vue-storefront/middleware": "^3.9.0",
-    "consola": "^3.0.0",
-    "axios": "^0.21.1"
+    "@vue-storefront/unified-data-model": "^1.0.0",
+    "axios": "^0.21.1",
+    "consola": "^3.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-json": "^6.1.0"
