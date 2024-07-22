@@ -13,3 +13,6 @@ export { getPaymentMethods } from "./getPaymentMethods";
 export { authenticateUser } from "./authenticateUser";
 export { getClientInfo } from "./getClientInfo";
 export { placeOrder } from "./placeOrder";
+
+export { getTaxon } from './getTaxon';
+export { getToken } from './getToken';

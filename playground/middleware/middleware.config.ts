@@ -3,7 +3,7 @@ export const integrations = {
         location: "@vue-storefront/integration-boilerplate-api/server",
         configuration: {
             api: {
-                baseURL: "https://master.demo.sylius.com/api/v2/shop",
+                baseURL: "https://vos-sylius.brandvisible.online/api/v2/shop",
             },
         },
     },

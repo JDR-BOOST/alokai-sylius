@@ -13,6 +13,8 @@ import {
     Maybe,
     SfCategory,
 } from "@vue-storefront/unified-data-model";
+import { getTaxons } from "../getTaxons"; // Import the taxon functions
+import { getTaxon } from "../getTaxon";
 
 export const getProducts = async (
     context: BoilerplateIntegrationContext,
@@ -69,6 +71,22 @@ export const getProducts = async (
             )
         );
 
+        // Fetch and map taxons to SfCategory format
+        let currentCategory: Maybe<SfCategory> = null;
+        let subCategories: SfCategory[] = [];
+        let categoryHierarchy: SfCategory[] = [];
+
+        if (params?.taxon) {
+            const taxon = await getTaxon(context, params.taxon);
+            currentCategory = taxon;
+            categoryHierarchy = [taxon]; // Assuming a single level hierarchy for simplicity
+            subCategories = taxon.subcategories || [];
+        } else {
+            const taxons = await getTaxons(context);
+            subCategories = taxons;
+            categoryHierarchy = taxons; // Assuming the top-level categories as the hierarchy for simplicity
+        }
+
         // Placeholder for pagination, facets, and category hierarchy logic
         const pagination: SfPagination = {
             currentPage: config.params.page,
@@ -81,9 +99,6 @@ export const getProducts = async (
         };
 
         const facets: SfFacet[] = []; // Placeholder for facets logic
-        const currentCategory: Maybe<SfCategory> = null; // Placeholder for current category logic
-        const subCategories: SfCategory[] = []; // Placeholder for subcategories logic
-        const categoryHierarchy: SfCategory[] = []; // Placeholder for category hierarchy logic
 
         return {
             products,
@@ -120,17 +135,19 @@ const mapToSfProductCatalogItem = async (
             });
     });
     const variantResponses = await Promise.all(variantPromises);
-    const variants: SfProductVariant[] = variantResponses.map((response) => {
-        const variant = response.data;
-        return {
-            id: variant.code,
-            slug: variant.code,
-            sku: variant.code,
-            name: variant.name,
-            quantityLimit: variant.inStock ? null : 0, // Assuming stock control
-            attributes: [], // Map attributes if available
-        };
-    });
+    const variants: SfProductVariant[] = variantResponses
+        .filter((response) => response !== null)
+        .map((response) => {
+            const variant = response!.data;
+            return {
+                id: variant.code,
+                slug: variant.code,
+                sku: variant.code,
+                name: variant.name,
+                quantityLimit: variant.inStock ? null : 0, // Assuming stock control
+                attributes: [], // Map attributes if available
+            };
+        });
 
     // Assuming the price information should come from the default variant
     const modifiedUrl = product.defaultVariant.replace("/api/v2/shop", "");
@@ -157,16 +174,13 @@ const mapToSfProductCatalogItem = async (
         sku: product.code,
         name: product.name,
         slug: product.slug,
-        // description: product.description,
         price: price,
         primaryImage: images[0] || null,
-        // gallery: images,
         rating: {
             average: product.averageRating,
             count: product.reviews.length,
         },
         // variants: variants,
-        // attributes: [], // Map attributes if available
         quantityLimit: null, // Assuming quantityLimit is not available
     };
 

@@ -46,7 +46,7 @@ const res = useState("getTaxons", () => "waiting to call getTaxons() ...");
 
 async function callEndpoint() {
     const data = await sdk.boilerplate.getTaxons("test");
-    res.value = JSON.stringify(data, null, 2);
+    res.value = data as any;
 }
 
 function reset() {

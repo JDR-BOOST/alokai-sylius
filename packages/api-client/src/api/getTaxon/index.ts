@@ -3,22 +3,7 @@ import { BoilerplateIntegrationContext } from "../../types";
 import { Taxon } from "../../types/models/Taxon";
 import { SfCategory } from "@vue-storefront/unified-data-model";
 
-export const getTaxons = async (
-    context: BoilerplateIntegrationContext
-): Promise<SfCategory[]> => {
-    consola.log("getTaxons has been called");
-
-    try {
-        const response = await context.client.get<Taxon[]>("/taxons");
-        const taxons = response.data;
-        const categories = taxons.map(convertToSfCategory);
-        return categories;
-    } catch (error) {
-        consola.error("Failed to fetch taxons:", error);
-        throw error;
-    }
-};
-
+// Helper function to convert Taxon to SfCategory
 const convertToSfCategory = (taxon: Taxon): SfCategory => {
     return {
         id: taxon.id ? taxon.id.toString() : "",
@@ -33,4 +18,22 @@ const convertToSfCategory = (taxon: Taxon): SfCategory => {
             images: taxon.images || [],
         },
     };
+};
+
+// Function to get a single taxon by code and convert to SfCategory
+export const getTaxon = async (
+    context: BoilerplateIntegrationContext,
+    code: string
+): Promise<SfCategory> => {
+    consola.log(`getTaxon has been called with code: ${code}`);
+
+    try {
+        const response = await context.client.get<Taxon>(`/taxons/${code}`);
+        const taxon = response.data;
+        const category = convertToSfCategory(taxon);
+        return category;
+    } catch (error) {
+        consola.error(`Failed to fetch taxon with code ${code}:`, error);
+        throw error;
+    }
 };
